@@ -1,0 +1,216 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-07-01 17:51:37
+ * @LastEditTime: 2021-07-05 16:01:33
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /week-share-demo/harmony.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html{
+            font-size: 62.5%;
+        }
+        body{
+            font-size: 2rem;
+            width: 100%;
+            height: 100%;
+            /* background: #000; */
+            background: #FF7E00;
+        }
+        .demo-ul{
+            background: #fff;
+            list-style-type: disc;
+            padding: 50px;
+        }
+        .demo-ul .title{
+            font-weight: 500;
+            font-size: 20px;
+            color: teal;
+        }
+        .demo-ul .hint{
+            font-size: 16px;
+            color: #aaa;
+        }
+        .box{
+            display: flex;
+        }
+        .box .title-text{
+            height: 120px;
+            /* 显示全部 */
+            /* display: none; */
+        }
+        .box .title-text span {
+            color: #fff;
+            display: inline-block;
+            font-size: 100px;
+            /* transform: translateY(-20px); */
+            opacity: 0;
+            animation: visibleLogo 3s forwards;
+            text-shadow: 10px 10px 25px #fff;
+        }
+        @keyframes visibleLogo {
+            to {  
+                opacity: 1;
+                font-size: 144px; 
+                text-shadow: none
+            }
+        }
+        .box .container{
+            /* margin-top: 100px; */
+            position: relative;
+            width: 115px;
+            height: 120px;
+            margin-left: -5px;
+            /* background-color: #ccc; */
+        }
+        .container .circle-container{
+            width: 100px;
+            height: 50px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            /* 1 */
+            overflow: hidden;
+            /* background-color: pink; */
+            /* 3 */
+            padding: 10px;
+            padding-bottom: 0px;
+            z-index: 2;
+
+        }
+        .container .circle-container1{
+            height: 50px;
+            position: absolute;
+            top: 60px;
+            /* 2 */
+            /* left: 100px;  */
+            /* 1 */
+            overflow: hidden;
+            /* background-color: pink; */
+            /* 3 */
+            padding: 10px;
+            padding-top: 0;
+
+            /* Chrome 拉小与safira模糊样式差距 */
+            /* margin-top: -3px; */
+            /* animation: container-move .1s 1.2s forwards */
+
+        }
+        .container .circle, .container .circle1{
+            width: 70px;
+            height: 70px;
+            /* background: #000; */
+            background: #FF7E00;
+            border-radius: 50%;
+            border: 15px solid #fff;
+            box-shadow: 0 0 6px white, inset 0 0 6px white;
+        }
+        .container .circle{
+            /* 50% - 0 下到上 */
+            transform: translateY(50%);  
+            animation: move 1.2s forwards;
+        }
+        .container .circle1{
+            /* -100% - -50 上到下 */
+            transform: translateY(-100%);
+            animation: move1 1.2s forwards;
+            filter: url(#blur);
+        }
+        @keyframes move {
+            to { transform: none }
+        }
+        @keyframes move1 {
+            to { transform: translateY(-50%) }
+        }
+        @keyframes container-move {
+            to { margin-top: 0 }
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="title-text">
+            <span>X</span>
+            <span>I</span>
+            <span>A</span>
+        </div>
+        <div class="container">
+            <div class="circle-container">
+                <div class="circle"></div>
+            </div>
+            <div class="circle-container1">
+                <div class="circle1"></div>
+            </div>
+        </div>
+        <div style="margin-left: 50px;" class="title-text">
+            <span>M</span>
+            <span>I</span>
+        </div>
+    </div>  
+    <!-- 可缩放矢量图形（Scalable Vector Graphics） -->
+    <!-- svg  标记定义 SVG 图形的容器 -->
+    <svg>
+        <filter id="blur">
+            <!-- filter标签 定义svg滤镜 使用必需的id属性来定义应用滤镜的图形 -->
+            <!-- feGaussianBlur 高斯模糊滤镜 滤镜效果通过此标签定义  -->
+            <!-- in="SourceGraphic" 由整个图像创建效果 -->
+            <!-- stdDeviation 表示模糊程度 只给一个数字表示全方位模糊 第一个数字代表X轴模糊程度，第二个数字代表Y轴模糊程度。在这里我们让X轴的模糊程度为0、Y轴的模糊程度为5 -->
+          <feGaussianBlur in="SourceGraphic" stdDeviation="0 5"/>
+        </filter>
+      </svg>
+    <ul class="demo-ul">
+        <img src="https://p1.itc.cn/images01/20210428/15ebd326af444f0e92c6e88d93a16513.gif" alt="">
+        <li>直接写个圆，然后写上边框，圆环外套个容器，外层容器高度为圆的一半，最后overflow: hidden;隐藏掉露在外面那半部分</li>
+        <img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c76b4e55a7cc4174b37546a0df012da3~tplv-k3u1fbpfcp-watermark.image" alt="">
+        <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1757c0ddd7dc447aafd232da3db8cf3d~tplv-k3u1fbpfcp-watermark.image" alt="">
+        <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5d3b685b60c14b82a392643fe7520754~tplv-k3u1fbpfcp-watermark.image" alt="">
+        <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/47a8717d620e4e73beb180221230eb45~tplv-k3u1fbpfcp-watermark.image" alt="">
+        <li><span class="title">外发光效果：</span> 加阴影，采用box-shadow内外双阴影</li>
+        <li>此时溢出隐藏(overflow: hidden;)这个方案的缺点就会被暴露出来，<br>由于我们的阴影部分面积在上下左右四个方向已经超出了外面盒子的宽高，所以被隐藏掉了，<br>我们只好为外面的盒子加入内边距padding来解决掉这个缺陷</li>
+        <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/24765a1117154f62b1ce75daeefc6471~tplv-k3u1fbpfcp-watermark.image" alt="">
+        <li><span class="title">模糊方向：</span>我们用的CSS模糊，模糊方向是上下左右东南西北等各个方向的，而鸿蒙的模糊方向是沿着Y轴也就是上下方向的模糊</li>
+        <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7cfb8a3c52a04d7da8b907550b8c8e59~tplv-k3u1fbpfcp-watermark.image" alt="">
+        <p class="hint">水面下的圆环越靠下模糊程度就越高，并且它的模糊主要是沿着上下两个方向来进行模糊的。<br>而且在向下方向的模糊程度要比在向上方向时的模糊程度要高上许多</p>
+        <li>带着方向带着渐变带着不同程度模糊效果: SVG滤镜<br>第一个数字就代表X轴模糊程度，第二个数字就代表Y轴模糊程度。在这里我们让X轴的模糊程度为0、Y轴的模糊程度为5</li>
+    </ul>
+    <script>
+        const filter = document.querySelector('feGaussianBlur')
+        const clearFilter = () => {
+            // 模糊从有到无
+            const value = parseFloat(filter.getAttribute('stdDeviation').split(' ')[1]) - 0.06
+            console.log();
+            if (value > 0) {
+                filter.setAttribute('stdDeviation', `0 ${value}`)
+                requestAnimationFrame(clearFilter)
+            } else {
+                return
+            }
+        }
+        // 消除chorme 与safira 字体高度差异引发的样式差异
+        var isChrome = !!window.chrome;
+        const spanArr = document.querySelectorAll('.box .title-text span');
+        spanArr.forEach((item)=>{
+            if(isChrome){
+                item.style.transform = 'translateY(-45px)';
+            }else{
+                item.style.transform = 'translateY(-20px)';
+            }
+            
+        })
+        
+        // 圆形从无到有  模糊效果从有到无
+        setTimeout(clearFilter, 1200)
+    </script>
+</body>
+</html>

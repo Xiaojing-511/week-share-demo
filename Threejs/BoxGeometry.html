@@ -1,0 +1,33 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-07-05 17:51:08
+ * @LastEditTime: 2021-07-05 18:04:58
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /week-share-demo/Threejs/BoxGeometry.html
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+		<script src="js/three.js"></script>
+		<script>
+            // 建立场景、相机和渲染器
+            var scene = new THREE.Scene();
+            var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+            var renderer = new THREE.WebGLRenderer();
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            // 我们并不需要写一个<canvas>标签，我们只需要定义好盛放canvas的div就可以，canvas是three.js动态生成的
+            // 我们将renderer（渲染器）的dom元素（renderer.domElement）添加到我们的HTML文档中。这就是渲染器用来显示场景给我们看的<canvas>元素。
+            document.body.appendChild( renderer.domElement );
+			
+		</script>
+	</body>
+</html>

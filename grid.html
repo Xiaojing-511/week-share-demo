@@ -1,0 +1,135 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-07-26 16:46:40
+ * @LastEditTime: 2021-07-26 19:58:50
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /week-share-demo/grid.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrapper {
+            margin: 60px;
+            /* 声明一个容器 */
+            display: grid;
+            /* 声明列的宽度  */
+            /* grid-template-columns: repeat(3, 200px); */
+            /* grid-template-columns: 200px 1fr 2fr; */
+            grid-template-columns: 1fr 1fr minmax(300px, 2fr);
+            /* 声明行间距和列间距 */
+            grid-gap: 20px;
+            /* 声明行的高度 */
+            grid-template-rows: 100px 200px;
+        }
+        .wrapper-2 {
+            margin: 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 200px);
+            grid-gap: 5px;
+            grid-auto-rows: 50px;
+        }
+        .one {
+        background: #19CAAD;
+        }
+        .two { 
+        background: #8CC7B5;
+        }
+        .three {
+        background: #D1BA74;
+        }
+        .four {
+        background: #BEE7E9;
+        }
+        .five {
+        background: #E6CEAC;
+        }
+        .six {
+        background: #ECAD9E;
+        }
+        .item {
+        text-align: center;
+        font-size: 200%;
+        color: #fff;
+        }
+        .wrapper-itemtest {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+            grid-auto-rows: minmax(100px, auto);
+        }
+        .one-1 {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        background: #19CAAD;
+        }
+        .two-2 { 
+            grid-column-start: 2;
+            grid-column-end: 4;
+            grid-row-start: 1;
+            grid-row-end: 2;
+            /* 如果有重叠，就使用 z-index */
+            z-index: 1;
+            background: #8CC7B5;
+        }
+        .three-3 {
+            grid-column-start: 3;
+            grid-column-end: 4;
+            grid-row-start: 1;
+            grid-row-end: 4;
+            background: #D1BA74;
+        }
+        .four-4 {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 5;
+        background: #BEE7E9;
+        }
+        .five-5 {
+        grid-column-start: 2;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 5;
+        background: #E6CEAC;
+        }
+        .six-6 {
+        grid-column: 3;
+        grid-row: 4;
+        background: #ECAD9E;
+        } 
+
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="one item">One</div>
+        <div class="two item">Two</div>
+        <div class="three item">Three</div>
+        <div class="four item">Four</div>
+        <div class="five item">Five</div>
+        <div class="six item">Six</div>
+      </div>
+      <div class="wrapper-2">
+        <div class="one item">One</div>
+        <div class="two item">Two</div>
+        <div class="three item">Three</div>
+        <div class="four item">Four</div>
+        <div class="five item">Five</div>
+        <div class="six item">Six</div>
+      </div>
+      <div class="wrapper-itemtest">
+        <div class="one-1 item">One</div>
+        <div class="two-2 item">Two</div>
+        <div class="three-3 item">Three</div>
+        <div class="four-4 item">Four</div>
+        <div class="five-5 item">Five</div>
+        <div class="six-6 item">Six</div>
+      </div>
+</body>
+</html>

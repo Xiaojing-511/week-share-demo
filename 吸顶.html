@@ -1,0 +1,148 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-08-05 11:10:40
+ * @LastEditTime: 2021-08-09 19:27:51
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /week-share-demo/吸顶.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ceiling</title>
+    <style>
+        *{
+            margin: 0;
+        }
+        .header-class{
+            text-align: center;
+        }
+        .parent{
+            width: 100%;
+            height: 1500px;
+            background-color: #eee;
+            /* 解决父子之间margin重叠  形成BFC*/
+            display: inline-block; 
+            /* margin-top: 100px; */
+        }
+        .parent .chidren{
+            display: flex; 
+            background-color: pink;
+            /* 兼容safari */
+            position: -webkit-sticky;
+            position: sticky;
+            margin-top: 20px;
+            top: 0px;
+        }
+
+        .parent .chidren>li{
+            list-style: none;
+            margin-right: 10px;
+            width: 45px;
+            height: 20px;
+            background-color: #ccc;
+        }
+        .hint{
+            width: 80%;
+            margin: 0 auto;
+        }
+        .ul-font>li{
+            font-size: 10px;
+            line-height: 20px;
+            color: grey;
+        }
+        .ul-font .children-li{
+            list-style-type: square;
+            margin-left: 20px;
+        }
+        #parent-dom{
+            width: 100%;
+            height: 30px;
+            margin-top: 30px;
+            background: pink;
+        }
+        #fixed-dom{
+            width: 100%;
+            height: 30px;
+            background: darksalmon;
+        }
+        .fixed{
+            position: fixed;
+            top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="parent">
+        <!-- 方案一 -->
+        <!-- <ul class="chidren">
+            <li>nav1</li>
+            <li>nav2</li>
+            <li>nav3</li>
+            <li>nav4</li>
+            <li>nav5</li>
+            <li>nav6</li>
+            <li>nav7</li>
+        </ul> -->
+        
+        <!-- 方案二 --> 
+        <!-- 添加一个等高的父元素 防止出现fixed时脱离文档流导致布局混乱 -->
+        <div id="parent-dom">
+            <div id="fixed-dom"></div>
+        </div>
+        
+        <div class="hint">
+            <header class="header-class">滚动吸顶效果实现方案</header>
+            <h4>1. position: sticky 粘性定位</h4>
+            <ul class="ul-font">
+                <li>position: sticky; 的元素根据用户的滚动位置进行定位</li>
+                <li>滚动位置在相对（relative）和固定（fixed）之间切换。起先它会被相对定位，直到在视口中遇到给定的偏移位置为止 - 然后将其“粘贴”在适当的位置（比如 position:fixed）。</li>
+                <li>兼容性：Internet Explorer、Edge 15 以及更早的版本不支持粘性定位。 Safari 需要 -webkit- 前缀</li>
+                <li>使用时注意：
+                    <li class="children-li">父元素不能设置 overflow:hidden; 或者 overflow:auto;  属性</li>
+                    <li class="children-li">必须至少指定 top、right、bottom 或 left 之一, 否则只会处于相对定位</li>
+                    <li class="children-li">父元素的高度不能低于sticky 元素的高度</li>
+                    <li class="children-li">sticky 元素仅在其父元素内生效</li>
+                </li>
+            </ul>
+            <h4>2. 使用 obj.getBoundingClientRect().top 实现</h4>
+            <ul class="ul-font">
+                <li>相对浏览器视窗上下左右的距离</li>
+                <li>也可使用offsetTop（相对定位父级的偏移量） 需根据offsetParent计算距离页面顶部的距离</li>
+            </ul>
+        </div>    
+    </div>
+</body>
+<script>
+    function scrollHandle(){
+        let parentDom = document.getElementById('parent-dom');
+        let dom = document.getElementById('fixed-dom');
+        // 监听本身 固定后不可恢复 
+        let offsetTop = dom.getBoundingClientRect().top;
+        // 监听父元素距离视口顶部的距离 固定后可恢复
+        // let offsetTop = parentDom.getBoundingClientRect().top;
+        console.log('offsetTop', offsetTop, dom.getBoundingClientRect().top);
+        if(offsetTop <= 10){
+            dom.classList.add('fixed');
+        }else{
+            dom.classList.remove('fixed');
+        }
+    }
+    // 优化 节流
+    function throttle(fn,wait){
+        let pre = 0;
+        return function(...args){
+            let now = Date.now();
+            if( now - pre >= wait){
+                fn.apply(this,args);
+                pre = now;
+            }
+        }
+    }
+    
+    window.addEventListener('scroll', throttle(scrollHandle,50) );
+</script>
+</html>

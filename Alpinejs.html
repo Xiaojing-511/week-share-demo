@@ -1,0 +1,139 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-08-13 18:40:52
+ * @LastEditTime: 2021-08-16 20:32:58
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /week-share-demo/Alpinejs.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link href="https://unpkg.com/tailwindcss@^2.2.7/dist/tailwind.min.css" rel="stylesheet"> -->
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body>
+    <div x-data="{ open: false,show: false }">
+        <button @click="open = true" >Expand</button>
+        <span x-show="open"
+            @click.outside="open = false"
+         >
+          Content...
+        </span>
+        <!-- .window -->
+        <div x-on:resize.window="show = window.outerWidth > 1068 ? false : true"></div>
+        <span x-show="show">show......</span>
+    </div>
+
+<!-- x-transition  v3.2.3失效 -->
+    <!-- x-transition:enter="transition ease-out duration-300"
+    x-transition:enter-start="opacity-0 transform scale-90"
+    x-transition:enter-end="opacity-100 transform scale-100"
+    x-transition:leave="transition ease-in duration-300"
+    x-transition:leave-start="opacity-100 transform scale-100"
+    x-transition:leave-end="opacity-0 transform scale-90" -->
+    <div  x-data =" { open: false } "> 
+        <button  @click =" open = !open " > Toggle </button >
+        <span  x-show ="open" 
+        -->
+        >
+            你好👋
+        </span > 
+    <div>
+        
+<!-- x-ref -->
+    </div>
+        <button @click="$refs.text ? $refs.text.remove() : ''">Remove Text</button>
+        <span x-ref="text">Hello 👋</span>
+    </div>
+
+<!-- x-for -->
+    <ul x-data="{ colors: ['Red', 'Orange', 'Yellow'] }">
+        <template x-for="color in colors">
+            <li x-text="color"></li>
+        </template>
+    </ul>
+
+<!-- x-effect  x-ignore-->
+<div  x-data =" { label: 'Hello',test: 'test' } " x-effect =" console.log(label,test) " > 
+    <button  @click =" label += '世界！' " >更改信息</button> 
+    <button  @click =" test += ' test' " >更改信息test</button> 
+    <p x-text="label"></p>
+    <div x-ignore>
+        <span x-init="{a: true}">ccc</span>
+    </div>
+</div >
+
+<!-- v-cloak x-text="message" message: 'this is a message!' -->
+<!-- 将隐藏<span>标签，直到 Alpine 将其文本内容设置为message属性 -->
+<div x-data="{}"> 
+    <span x-cloak ></span>
+</div>
+<!-- $store -->
+<div x-init="handle">
+   <button x-data @click="$store.darkMode.toggle()">Toggle Dark Mode</button>
+    <span x-show="$store.darkMode.on">darkMode</span> 
+</div>
+
+<!-- $watch -->
+<div x-data="{ open: false }" x-init="$watch('open', (value, oldValue) => console.log(value, oldValue))">
+    <button @click="open = ! open">Watch open</button>
+</div>
+
+<!-- $dispatch -->
+<div @notify="console.log($event.detail.foo)">
+    <button @click="$dispatch('notify', { foo: 'bar' })">触发custom-event</button>
+    <!-- 点击时，将触发 console.log -->
+</div>
+<div x-data="{ foo: 'bar' }">
+    <span x-model="foo">
+        <button @click="$dispatch('input', 'baz')">触发input</button>
+        <span x-text="foo"></span>
+        <!-- 按钮被点击后，`x-model` 将获得冒泡的 「input」事件，并更新 foo 为 「baz」。 -->
+    </span>
+</div>
+
+<!-- $nextTick -->
+<div x-data="{ title: 'Hello' }">
+    <button
+        @click="
+            title = 'Hello World!';
+            $nextTick(() => { console.log($el.innerText) });
+        "
+        x-text="title"
+    ></button>
+</div>
+<!-- Alpine.data() -->
+<div x-data="dropdown">
+    <button @click="toggle">Alpine.data test</button>
+    <div x-show="open">Alpine.data</div>
+</div>
+</body>
+<script src="https://unpkg.com/alpinejs@3.2.2/dist/cdn.min.js" defer></script>
+<!-- <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script> -->
+<script>
+    function handle(){
+        Alpine.store('darkMode', {
+            on: false,
+            toggle() {
+                this.on = ! this.on
+            }
+        })
+    }
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('dropdown', () => ({
+            open: false,
+
+            toggle() {
+                this.open = ! this.open
+            }
+        }))
+    })
+</script>
+</html>

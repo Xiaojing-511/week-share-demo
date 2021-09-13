@@ -1,0 +1,142 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-09-06 14:28:04
+ * @LastEditTime: 2021-09-13 11:53:15
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /week-share-demo/css_filter/模糊效果.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模糊效果</title>
+    <style>
+        .cards{
+            display: flex;
+            list-style-type: none;
+            width: 600px;
+            color: #fff;
+        }
+        
+        .card{
+            width: 200px;
+            height: 300px;
+            margin-right: 20px;
+            position: relative;
+            cursor: pointer;
+        }
+        /*
+            这里不能将滤镜直接加在.card元素，而是将背景和滤镜都加在伪类上。
+            因为，父元素加了滤镜，它的子元素都会一起由该滤镜改变。
+            如果滤镜直接加在.card元素上，会导致上面的文字也变模糊。
+        */
+        .card:before{
+            z-index: -1;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: url('../images/movie.jpeg');
+            border-radius: 20px;
+            filter: blur(0px) opacity(1);
+            transition: filter 200ms linear, transform 200ms linear;
+        }
+        /* 通过css选择器选出非hover的.card元素，给其伪类添加模糊、透明度和明暗度的滤镜  */
+        /* blur() 将高斯模糊应用于输入图像。radius 定义了高斯函数的标准偏差值，或者屏幕上有多少像素相互融合，因此，较大的值将产生更多的模糊 */
+        .cards:hover > .card:not(:hover):before{    
+            filter: blur(5px) opacity(0.8) brightness(0.8);
+        }
+
+        /* 对于hover的元素，其伪类增强饱和度，尺寸放大 
+        /* saturate(): 转换图像饱和度 */
+        .card:hover:before{
+            filter: saturate(1.2);  
+            transform: scale(1.05);;
+        }
+
+        .card .title, .card .content{
+            margin-left: 5px;
+        }
+
+        /* grayscale: 灰度 */
+        /* .gray:hover {
+            filter: grayscale(100%);
+            transition: filter 500ms linear;
+            animation: loopGray 3s infinite linear
+        } */
+        .gray{
+            animation: loop-gray 3s infinite linear;
+        }
+        @keyframes loop-gray{
+            0% {
+                /* opacity: 1; */
+                filter: opacity(100%);
+            }
+            100%{
+                /* opacity: 0; */
+                filter: opacity(0%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <ul class="cards" >
+        <li class="card">
+          <p class="title">Flower</p>
+          <p class="content">The flowers mingle to form a blaze of color.</p>
+        </li>
+        <li class="card">
+          <p class="title">Sunset</p>
+          <p class="content">The sunset glow tinted the sky red.</p>
+        </li>
+        <li class="card">
+          <p class="title">Plain</p>
+          <p class="content">The winds came from the north, across the plains, funnelling down the valley. </p>
+        </li>
+     </ul>
+     <div id="loop">
+
+     </div>
+     <img src="../images/dasheng.jpg" alt="" class="gray">
+</body>
+<script>
+    var i = 0;
+    var container = document.getElementById('loop')
+    while(i < 7000){
+        var elem = document.getElementsByClassName('gray')[0].cloneNode();
+        container.appendChild(elem);
+        i++;
+    }
+
+    // var rAF = function () {
+    //     return (
+    //         window.requestAnimationFrame ||
+    //         window.webkitRequestAnimationFrame ||
+    //         function (callback) {
+    //             window.setTimeout(callback, 1000 / 60);
+    //         }
+    //     );
+    // }();
+    // var frame = 0;
+    // var lastTime = Date.now();    
+    // var loop = function () {
+    //     var now = Date.now();
+    //     frame++;
+    
+    //     if (now > 1000 + lastTime) {
+    //         var fps = Math.round((frame * 1000) / (now - lastTime));
+    //         console.log(`${new Date()} 1S内 FPS：`, fps);
+    //         frame = 0;
+    //         lastTime = now;
+    //     };
+    //     rAF(loop);
+    // }
+    
+    // loop();
+</script>
+</html>

@@ -1,0 +1,33 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-09-12 17:40:58
+ * @LastEditTime: 2021-09-12 19:38:52
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /week-share-demo/css_filter/灰度.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* IE  */
+        /* IE系列浏览器都支持IE滤镜的这一属性，非IE浏览器不支持。 */
+        .gray{
+            /* 标准写法 */
+            filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); 
+            filter:gray; 
+        }
+    </style>
+</head>
+<body>
+    <div id="gray_ie">
+        <img src="../images/dasheng.jpg" alt="" class="gray">
+    </div>
+</body>
+<script>
+</script>
+</html>

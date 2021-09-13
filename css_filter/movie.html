@@ -1,0 +1,73 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-09-06 13:28:43
+ * @LastEditTime: 2021-09-06 14:13:37
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /week-share-demo/css_filter/movie.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电影谢幕效果</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .pic{
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            background: url('../images/movie.jpeg') no-repeat;
+            background-size: cover;
+            /* animation-fill-mode: none | forwards | backwards |both;  定义动画播放时间之外的状态*/
+            /*  forwards当动画完成后，保持最后一帧的状态 backwards则是回调到动画最开始出现的画面*/
+            animation: fade-away 2.5s linear forwards;   
+        }
+        .text{
+            position: absolute;
+            line-height: 55px;
+            color: #fff;
+            font-size: 36px;
+            text-align: center;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            opacity: 0;
+            /* animation-timing-function 规定动画的速度曲线 */
+            animation: show 2s cubic-bezier(.74,-0.1,.86,.83) forwards;
+        }
+            /* 背景图的明暗度动画 */
+        @keyframes fade-away {    
+            30%{
+                filter: brightness(1);
+            }
+            100%{
+                filter: brightness(0);
+            }
+        }
+        /* 文字的透明度动画 */
+        @keyframes show{        
+            20%{
+                opacity: 0;
+            }
+            100%{
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="pic"></div>
+        <div class="text">
+          <p>灾难面前，尽现人间百态</p>
+          <p>...</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,20 +1,36 @@
 /*
  * @Author: your name
  * @Date: 2021-09-11 15:57:43
- * @LastEditTime: 2021-09-11 16:20:59
+ * @LastEditTime: 2021-09-22 20:57:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /week-share-demo/test_js.js
  */
-function numHandle(str){
-    let num = 0;
-    for(let i = 0; i < str.length - 1; i++){
-        for(let j = i + 1; j < str.length; j++){
-            console.log('子串', str.slice(i,j + 1));
-            parseInt(str.slice(i,j + 1)) % 22 === 0 ? ++num : ''
+function test(times,arr){
+    let flag = 'row',row = arr[0].length,col = arr.length;
+    while(times > 0){
+        if(flag === 'row'){
+            for(var i = 0;i < row/2; i++){
+                for(var j = 0;j < col; j++){
+                    arr[j][i] += arr[j][row - 1 - i]
+                }
+            }
+            row = row/2
+            flag = 'col'
+            console.log('row', arr);
+        }else if(flag === 'col'){
+            for(var i = 0;i < col/2; i++){
+                for(var j = 0;j < row; j++){
+                    arr[i][j] += arr[col - 1 - i][j]
+                }
+            }
+            col = col/2
+            flag = 'row'
+            console.log('col', arr);
         }
+        times--;
     }
-    console.log('num...', num);
-    // return num;
+    return arr[0][0]
 }
-numHandle('12221')
+console.log('test', test(2,[[1,2],[3,4]]));
+console.log('1 2'.split(' ').map(item => {return parseInt(item)}));

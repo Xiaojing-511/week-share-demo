@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-09-06 14:28:04
- * @LastEditTime: 2021-09-13 11:53:15
+ * @LastEditTime: 2021-09-13 19:11:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /week-share-demo/css_filter/模糊效果.html
@@ -107,36 +107,36 @@
 <script>
     var i = 0;
     var container = document.getElementById('loop')
-    while(i < 7000){
+    while(i < 4000){
         var elem = document.getElementsByClassName('gray')[0].cloneNode();
         container.appendChild(elem);
         i++;
     }
 
-    // var rAF = function () {
-    //     return (
-    //         window.requestAnimationFrame ||
-    //         window.webkitRequestAnimationFrame ||
-    //         function (callback) {
-    //             window.setTimeout(callback, 1000 / 60);
-    //         }
-    //     );
-    // }();
-    // var frame = 0;
-    // var lastTime = Date.now();    
-    // var loop = function () {
-    //     var now = Date.now();
-    //     frame++;
+    var rAF = function () {
+        return (
+            window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            function (callback) {
+                window.setTimeout(callback, 1000 / 60);
+            }
+        );
+    }();
+    var frame = 0;
+    var lastTime = Date.now();    
+    var loop = function () {
+        var now = Date.now();
+        frame++;
     
-    //     if (now > 1000 + lastTime) {
-    //         var fps = Math.round((frame * 1000) / (now - lastTime));
-    //         console.log(`${new Date()} 1S内 FPS：`, fps);
-    //         frame = 0;
-    //         lastTime = now;
-    //     };
-    //     rAF(loop);
-    // }
+        if (now > 1000 + lastTime) {
+            var fps = Math.round((frame * 1000) / (now - lastTime));
+            console.log(`${new Date()} 1S内 FPS：`, fps);
+            frame = 0;
+            lastTime = now;
+        };
+        rAF(loop);
+    }
     
-    // loop();
+    loop();
 </script>
 </html>

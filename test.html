@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-02 11:45:01
- * @LastEditTime: 2021-09-11 15:57:28
+ * @LastEditTime: 2021-09-26 18:12:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /week-share-demo/test.html
@@ -17,9 +17,35 @@
     </style>
 </head>
 <body>
+    <iframe src="./test-iframe.html" frameborder="0"></iframe>
 </body>
 <script>
-    let arr = [1,2,3];
-    console.log('arr', arr,arr.__ob__);
+    console.log( document.cookie);
+    // document.cookie = '父页面cookie'
+    function maxLexicographical( num ) {
+        let finalBefore = -1,finalAfter = -1,
+        before = -1,after = -1, maxLength = 0;
+        for(let i = 0; i < num.length; i++){
+            if(before === -1 && num[i] === '0'){
+                before = i;
+            }else if(before !== -1 && num[i] === '0'){
+                after = i;
+            }else if(before !== -1 && num[i] === '1'){
+                if(after - before > maxLength){
+                    maxLength = after - before;
+                    finalBefore = before;
+                    finalAfter = after;
+                }
+                before = -1;after = -1;
+            }
+        }
+        return num.split('').map((item,index)=>{
+            return index >= finalBefore && index <= finalAfter ? 1 : item
+        }).join('')
+        console.log('test', finalBefore, finalAfter,num,num.split('').map((item,index)=>{
+            return index >= finalBefore && index <= finalAfter ? 1 : item
+        }).join(''));
+    }
+    maxLexicographical('010001001')
 </script>
 </html>

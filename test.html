@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-02 11:45:01
- * @LastEditTime: 2021-09-26 18:12:43
+ * @LastEditTime: 2021-09-29 00:14:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /week-share-demo/test.html
@@ -46,6 +46,42 @@
             return index >= finalBefore && index <= finalAfter ? 1 : item
         }).join(''));
     }
-    maxLexicographical('010001001')
+    // maxLexicographical('010001001')
+    inner = 'window'
+    function say(){
+        console.log('inner', inner);
+        console.log('this.inner',this.inner);
+        // console.log('this.inner === inner',this.inner === inner);
+    }
+
+    var obj1 = (function(){
+        var inner = 'obj1-1'
+        return {
+            inner: 'obj1-2',
+            say: function(){
+                console.log(inner);
+                console.log(this.inner);
+            }
+        }
+    })()
+
+    var obj2 = (function(){
+        var inner = 'obj2-1'
+        return {
+            inner: 'obj2-2',
+            say: function(){
+                console.log(inner);
+                console.log(this.inner);
+            }
+        }
+    })()
+
+    // say();
+    obj1.say()
+    obj2.say()
+    obj1.say = say;
+    obj1.say();
+    obj1.say = obj2.say;
+    obj1.say(); // 'obj2-1' 'obj1-2'
 </script>
 </html>
